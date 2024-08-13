@@ -39,7 +39,6 @@ jobs:
       run: |
         
         git clone --depth=1 https://github.com/jifei881121/dirlist /opt/dirlist
-        cd /opt/dirlist
         tar -czvf dirlist1.4.tar.gz /opt/dirlist/
              
     - name: Generate release tag
@@ -59,7 +58,7 @@ jobs:
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
-        files: ${{ env.FIRMWARE }}/opt/dirlist/*.*
+        files: ${{ env.FIRMWARE }}/opt/dirlist/*.tar.gz
 
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@main
