@@ -10,13 +10,13 @@ if(!defined('DIR_INIT'))exit();
 	<title><?php echo $conf['title']?></title>
 	<meta name="keywords" content="Beauty Directory,Directory Lister目录列表,目录索引" />
 	<meta name="description" content="Beauty Directory目录列表程序" />
-	<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css">
+	<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css">
     <link rel='stylesheet' href='./_dir/static/css/style.css?v=1002'>
   <!--[if lt IE 9]>
-    <script src="https://s4.zstatic.net/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://s4.zstatic.net/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
 <body>
