@@ -1,3 +1,10 @@
+.container {
+    max-width: 1440px;
+}
+
+.container:after {
+    content: "";
+}
 .header{
 	background-color:#393D49;
     width:100%;
