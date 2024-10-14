@@ -10,13 +10,13 @@ if(!defined('DIR_INIT'))exit();
 	<title><?php echo $conf['title']?></title>
 	<meta name="keywords" content="Beauty Directory,Directory Lister目录列表,目录索引" />
 	<meta name="description" content="Beauty Directory目录列表程序" />
-	<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css">
+	<link rel="stylesheet" href="<?php echo $cdnpublic?>font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="<?php echo $cdnpublic?>twitter-bootstrap/4.6.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<?php echo $cdnpublic?>github-markdown-css/5.1.0/github-markdown.min.css">
     <link rel='stylesheet' href='./_dir/static/css/style.css?v=1002'>
   <!--[if lt IE 9]>
-    <script src="https://cdn.bootcdn.net/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="<?php echo $cdnpublic?>html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="<?php echo $cdnpublic?>respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
 <body>
@@ -46,8 +46,8 @@ foreach($navs as $nav){
 				</li>
 			</ul>
 
-			<form class="form-inline my-2 my-lg-0" action="./" method="GET">
-				<input type="text" name="c" required lay-verify="required" autocomplete="off" value = "search" style = "display: none;">
+			<form class="form-inline my-2 my-lg-0 d-none d-lg-flex" action="./" method="GET">
+				<input type="hidden" name="c" value="search">
 				<input name="s" class="form-control mr-sm-2" type="search" placeholder="请输入搜索关键字" aria-label="Search" value="">
 				<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">	<i class="fa fa-search" aria-hidden="true"></i> 搜索</button>
 			</form>
