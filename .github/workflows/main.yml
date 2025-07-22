@@ -17,34 +17,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.22'  # 指定你的Go版本
-    
-    - name: Initialize module
-      run: go mod init github.com/${{ github.repository }}  # 自动初始化模块
-    
-    - name: Build
-      run: go build -o myapp ./cmd/main  # 指定明确的主包路径
-      
-    - name: Upload artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: myapp
-        path: myapp
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
     - name: Set up Go
       uses: actions/setup-go@v5
       with:
         go-version: '1.22'
+    - name: Initialize module
+      run: go mod init github.com/${{ github.repository }}
     - name: Build
-      run: go build -o myapp ./...
+      run: go build -o myapp ./cmd/main
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       env:
