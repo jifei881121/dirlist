@@ -1,0 +1,71 @@
+name: 自动打包并发布 Releases
+
+# 触发条件：当推送符合 v*.*.* 格式的标签时触发
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 步骤1：检出代码
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 拉取所有历史记录，确保能正确生成源码包
+      
+      # 步骤2：获取版本号（从标签中提取）
+      - name: 提取版本号
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+      
+      # 步骤3：打包源码（zip 和 tar.gz 两种格式）
+      - name: 打包源码
+        run: |
+          # 创建打包目录
+          mkdir -p release_assets
+          
+          # 打包为 zip 格式
+          zip -r release_assets/${{ github.event.repository.name }}-v${{ steps.get_version.outputs.VERSION }}.zip . \
+            --exclude '.git/*' \
+            --exclude '.github/*' \
+            --exclude 'release_assets/*'
+          
+          # 打包为 tar.gz 格式
+          tar -czf release_assets/${{ github.event.repository.name }}-v${{ steps.get_version.outputs.VERSION }}.tar.gz . \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude 'release_assets'
+      
+      # 步骤4：（可选）构建二进制文件（以 Node.js 项目为例）
+      - name: 构建二进制文件（Node.js）
+        if: contains(github.repository, 'node')  # 仅在 Node.js 项目中执行
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+      
+      - name: 安装依赖并打包
+        if: contains(github.repository, 'node')
+        run: |
+          npm install
+          npm run build  # 假设项目中有 build 脚本
+          # 将构建结果打包
+          zip -r release_assets/${{ github.event.repository.name }}-v${{ steps.get_version.outputs.VERSION }}-dist.zip dist/
+      
+      # 步骤5：创建 GitHub Release 并上传资产
+      - name: 创建 Release 并上传文件
+        uses: softprops/action-gh-release@v2
+        with:
+          # 从 CHANGELOG.md 中读取发布说明（如果存在）
+          body_path: CHANGELOG.md
+          # 上传打包好的文件
+          files: |
+            release_assets/*.zip
+            release_assets/*.tar.gz
+          # 标记为预发布（可选，根据版本号判断）
+          prerelease: ${{ contains(github.ref, '-beta') || contains(github.ref, '-alpha') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
